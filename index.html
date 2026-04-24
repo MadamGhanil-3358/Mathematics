@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Form One Mathematics | Tanzania Secondary School</title>
+    <!-- Google Fonts for an attractive and readable typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Outer+Sans&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f8f9fc 0%, #eef2f7 100%);
+            font-family: 'Inter', sans-serif;
+            color: #1e2a3e;
+            line-height: 1.4;
+            padding: 20px;
+        }
+
+        /* main app container */
+        .app-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* Header with logo and tanzania vibe */
+        .hero-header {
+            background: linear-gradient(135deg, #0b3b2f, #1b5e3f);
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-bottom: 5px solid #f4c542;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(255,255,240,0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+
+        .logo-img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #f4c542;
+            background: white;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.3px;
+        }
+
+        .logo-text p {
+            color: #ffecb3;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .title-tag {
+            text-align: right;
+        }
+
+        .title-tag h2 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .title-tag span {
+            background: #f4c542;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1e3a2f;
+            font-weight: bold;
+        }
+
+        /* navigation cards / topics */
+        .topics-nav {
+            background: #ffffffdd;
+            backdrop-filter: blur(4px);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid #e0e7ed;
+            background: #fefcf5;
+        }
+
+        .topic-btn {
+            background: transparent;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f3f8;
+            color: #1f4e3c;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .topic-btn i {
+            font-size: 1.1rem;
+        }
+
+        .topic-btn:hover {
+            background: #e0e9f0;
+            transform: translateY(-2px);
+        }
+
+        .topic-btn.active {
+            background: #1b5e3f;
+            color: white;
+            box-shadow: 0 6px 12px rgba(27,94,63,0.25);
+        }
+
+        /* main content area */
+        .content-area {
+            padding: 2rem 2rem 2.5rem;
+            background: #ffffff;
+        }
+
+        /* card style for each topic */
+        .topic-card {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .topic-card.active-card {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(120deg, #eef5f0, #ffffff);
+            padding: 1rem 1.5rem;
+            border-radius: 2rem;
+            margin-bottom: 1.8rem;
+            border-left: 12px solid #f4c542;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a4d3a;
+        }
+
+        .card-header i {
+            font-size: 2.2rem;
+            color: #f4c542;
+        }
+
+        .definition-box, .example-box, .fun-fact {
+            background: #fafbfd;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            border: 1px solid #eef2f0;
+        }
+
+        .definition-box h3, .example-box h3, .fun-fact h3 {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1e3a2f;
+        }
+
+        .definition-box p, .example-box p {
+            font-size: 1.05rem;
+            color: #2c3e44;
+            margin-bottom: 0.75rem;
+        }
+
+        .math-highlight {
+            background: #eef2e6;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0b5e2e;
+            text-align: center;
+            margin-top: 0.8rem;
+        }
+
+        .example-box ul, .fun-fact ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .example-box li {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .interactive-quiz {
+            background: #eef3fc;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            margin-top: 1.5rem;
+            border: 1px solid #cbdde9;
+        }
+
+        .interactive-quiz h4 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #0056a3;
+        }
+
+        .quiz-question {
+            font-weight: 600;
+            margin: 0.8rem 0;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 10px 0 12px;
+        }
+
+        .quiz-btn {
+            background: white;
+            border: 1px solid #bdc4cc;
+            padding: 8px 18px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.1s;
+            font-family: inherit;
+        }
+
+        .quiz-btn:hover {
+            background: #d9e3ec;
+            transform: scale(0.97);
+        }
+
+        .quiz-feedback {
+            font-size: 0.95rem;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* footer */
+        .footer-note {
+            text-align: center;
+            background: #f1f5f9;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #4a5b6e;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 700px) {
+            .hero-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .title-tag {
+                text-align: center;
+            }
+            .content-area {
+                padding: 1.5rem;
+            }
+            .card-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+    <!-- header section with math.jpg logo -->
+    <div class="hero-header">
+        <div class="logo-area">
+            <!-- Important: image named "math.jpg" placed in same folder as this HTML file -->
+            <img src="math.jpg" alt="Mathematics Logo" class="logo-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/65?text=Math+Logo';">
+            <div class="logo-text">
+                <h1>Hisabati SmartStart</h1>
+                <p>📐 Tanzania Form One • Mathematics Foundation</p>
+            </div>
+        </div>
+        <div class="title-tag">
+            <h2>Elimu ni Ufunguo <i class="fas fa-chalkboard-user"></i></h2>
+            <span>⭐ new syllabus ⭐</span>
+        </div>
+    </div>
+
+    <!-- topic navigation bar -->
+    <div class="topics-nav">
+        <button class="topic-btn active" data-topic="numbers"><i class="fas fa-calculator"></i> Numbers</button>
+        <button class="topic-btn" data-topic="fractions"><i class="fas fa-chart-pie"></i> Fractions</button>
+        <button class="topic-btn" data-topic="algebra"><i class="fas fa-square-root-variable"></i> Algebra</button>
+        <button class="topic-btn" data-topic="geometry"><i class="fas fa-shapes"></i> Geometry</button>
+        <button class="topic-btn" data-topic="statistics"><i class="fas fa-chart-line"></i> Statistics</button>
+    </div>
+
+    <!-- dynamic content area for each topic -->
+    <div class="content-area">
+        <!-- Numbers topic -->
+        <div id="numbers" class="topic-card active-card">
+            <div class="card-header">
+                <i class="fas fa-123"></i>
+                <h2>Whole Numbers & Place Value 📊</h2>
+            </div>
+            <div class="definition-box">
+                <h3><i class="fas fa-lightbulb"></i> Definition</h3>
+                <p>Numbers are symbols used for counting and measuring. In Form One, we study <strong>Natural Numbers</strong> (1,2,3,...) and <strong>Whole Numbers</strong> (0,1,2,3,...). Place value helps us read large numbers: ones, tens, hundreds, thousands.</p>
+                <div class="math-highlight">
+                    🔢 Example: 5,267 = 5 thousands + 2 hundreds + 6 tens + 7 ones
+                </div>
+            </div>
+            <div class="example-box">
+                <h3><i class="fas fa-pen-ruler"></i> Real-life example</h3>
+                <p>In Tanzania, you might count shillings: 15,500 TSh means 1 ten-thousand, 5 thousands, and 5 hundreds.</p>
+                <ul>
+                    <li>✅ 2,450 → two thousand four hundred fifty</li>
+                    <li>✅ 30,000 → thirty thousand</li>
+                </ul>
+            </div>
+            <div class="interactive-quiz">
+                <h4><i class="fas fa-brain"></i> Quick Quiz (Numbers)</h4>
+                <div class="quiz-question">What is the place value of digit '7' in the number 47,892?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-opt="thousands">Thousands</button>
+                    <button class="quiz-btn" data-opt="hundreds">Hundreds</button>
+                    <button class="quiz-btn" data-opt="ten-thousands">Ten Thousands</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-numbers"></div>
+            </div>
+        </div>
+
+        <!-- Fractions topic -->
+        <div id="fractions" class="topic-card">
+            <div class="card-header">
+                <i class="fas fa-utensils"></i>
+                <h2>Fractions & Decimals 🥧</h2>
+            </div>
+            <div class="definition-box">
+                <h3><i class="fas fa-chalkboard"></i> What is a fraction?</h3>
+                <p>A fraction represents a part of a whole. Written as \(\frac{a}{b}\) where a = numerator, b = denominator (b ≠ 0). For example, \(\frac{3}{4}\) means 3 parts out of 4 equal parts.</p>
+                <div class="math-highlight">
+                    🍕 If you eat 2 slices of pizza cut into 8 slices → fraction = 2/8 = 1/4.
+                </div>
+            </div>
+            <div class="example-box">
+                <h3><i class="fas fa-store"></i> Everyday Maths</h3>
+                <p>When sharing maize or beans: 1/2 kg, 3/4 litre. Also decimals: 0.5 = 1/2, 0.75 = 3/4.</p>
+                <ul><li>Convert 0.6 to fraction: 6/10 = 3/5.</li></ul>
+            </div>
+            <div class="interactive-quiz">
+                <h4><i class="fas fa-star-of-life"></i> Quick Check (Fractions)</h4>
+                <div class="quiz-question">Which fraction is equivalent to 0.25?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-opt="1/4">1/4</button>
+                    <button class="quiz-btn" data-opt="1/2">1/2</button>
+                    <button class="quiz-btn" data-opt="3/4">3/4</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-fractions"></div>
+            </div>
+        </div>
+
+        <!-- Algebra topic -->
+        <div id="algebra" class="topic-card">
+            <div class="card-header">
+                <i class="fas fa-x-ray"></i>
+                <h2>Intro to Algebra 🔤</h2>
+            </div>
+            <div class="definition-box">
+                <h3><i class="fas fa-cube"></i> Algebraic Expressions</h3>
+                <p>Algebra uses letters (variables) to represent unknown numbers. Example: \(x + 5 = 12\). We solve to find \(x = 7\). Simple like balancing a scale!</p>
+                <div class="math-highlight">
+                    ✨ Key rule: same operation on both sides keeps equation true.
+                </div>
+            </div>
+            <div class="example-box">
+                <h3><i class="fas fa-chart-simple"></i> Real Application</h3>
+                <p>If a book costs 2,500 TSh and you have ‘b’ shillings, the change = b - 2500. Also, “three times a number plus 4” is written as \(3n+4\).</p>
+            </div>
+            <div class="interactive-quiz">
+                <h4><i class="fas fa-question-circle"></i> Algebra quiz</h4>
+                <div class="quiz-question">Solve: \(x + 8 = 15\) What is x?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-opt="7">7</button>
+                    <button class="quiz-btn" data-opt="8">8</button>
+                    <button class="quiz-btn" data-opt="23">23</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-algebra"></div>
+            </div>
+        </div>
+
+        <!-- Geometry topic -->
+        <div id="geometry" class="topic-card">
+            <div class="card-header">
+                <i class="fas fa-draw-polygon"></i>
+                <h2>Basic Geometry 📐</h2>
+            </div>
+            <div class="definition-box">
+                <h3><i class="fas fa-shapes"></i> Shapes & Angles</h3>
+                <p>Geometry studies points, lines, angles, and shapes. A line has no endpoints; a ray starts from a point. Common shapes: square, rectangle, triangle, circle.</p>
+                <div class="math-highlight">
+                    🔺 Triangle has 3 sides, sum of interior angles = 180°. 🔲 Square has 4 equal sides and 4 right angles.
+                </div>
+            </div>
+            <div class="example-box">
+                <h3><i class="fas fa-compass-drafting"></i> Construction in daily life</h3>
+                <p>Roof of houses forms triangles (strong structure). Tiles often have rectangular or square patterns.</p>
+                <ul><li>Area of rectangle = length × width.</li><li>Perimeter = 2×(l+w).</li></ul>
+            </div>
+            <div class="interactive-quiz">
+                <h4><i class="fas fa-measure"></i> Geometry Quiz</h4>
+                <div class="quiz-question">How many degrees are in a right angle?</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-opt="90">90°</button>
+                    <button class="quiz-btn" data-opt="180">180°</button>
+                    <button class="quiz-btn" data-opt="360">360°</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-geometry"></div>
+            </div>
+        </div>
+
+        <!-- Statistics topic -->
+        <div id="statistics" class="topic-card">
+            <div class="card-header">
+                <i class="fas fa-chart-simple"></i>
+                <h2>Introduction to Statistics 📈</h2>
+            </div>
+            <div class="definition-box">
+                <h3><i class="fas fa-table"></i> Data & graphs</h3>
+                <p>Statistics means collecting, organizing, and interpreting data. Form One learns about pictographs, bar charts, mean, median, and mode.</p>
+                <div class="math-highlight">
+                    📊 Mean = sum of all data values divided by number of values.
+                </div>
+            </div>
+            <div class="example-box">
+                <h3><i class="fas fa-crop-alt"></i> Tanzania school example</h3>
+                <p>Suppose test scores: 70, 85, 90, 75, 80. Mean = (70+85+90+75+80)/5 = 400/5 = 80. The most common score is Mode.</p>
+                <ul><li>Bar charts help compare harvest yields across regions.</li></ul>
+            </div>
+            <div class="interactive-quiz">
+                <h4><i class="fas fa-chart-bar"></i> Statistics quiz</h4>
+                <div class="quiz-question">Find the mean of: 4, 8, 6, 2</div>
+                <div class="quiz-options">
+                    <button class="quiz-btn" data-opt="5">5</button>
+                    <button class="quiz-btn" data-opt="6">6</button>
+                    <button class="quiz-btn" data-opt="4">4</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-statistics"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-note">
+        <i class="fas fa-graduation-cap"></i> Tanzania Form One Mathematics — Let’s build strong foundation!  📍 Practice daily, ask your teacher.
+    </div>
+</div>
+
+<script>
+    // --- Topic switching (navigation) ---
+    const topicBtns = document.querySelectorAll('.topic-btn');
+    const topicCards = document.querySelectorAll('.topic-card');
+
+    function switchTopic(topicId) {
+        // remove active class from all cards + buttons
+        topicCards.forEach(card => card.classList.remove('active-card'));
+        topicBtns.forEach(btn => btn.classList.remove('active'));
+        // activate current
+        const activeCard = document.getElementById(topicId);
+        if (activeCard) activeCard.classList.add('active-card');
+        const activeBtn = Array.from(topicBtns).find(btn => btn.getAttribute('data-topic') === topicId);
+        if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    topicBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const topic = btn.getAttribute('data-topic');
+            switchTopic(topic);
+        });
+    });
+
+    // ----- Quiz interaction logic: for each topic, set up answer checkers -----
+    // Data structure: mapping from topic element id to correct answer for that quiz
+    const quizAnswers = {
+        numbers: { correct: "thousands", feedbackId: "quiz-feedback-numbers" },
+        fractions: { correct: "1/4", feedbackId: "quiz-feedback-fractions" },
+        algebra: { correct: "7", feedbackId: "quiz-feedback-algebra" },
+        geometry: { correct: "90", feedbackId: "quiz-feedback-geometry" },
+        statistics: { correct: "5", feedbackId: "quiz-feedback-statistics" }
+    };
+
+    // attach eventlisteners to all quiz buttons with class .quiz-btn inside each card
+    function attachQuizListeners() {
+        // for each topic card, find all quiz buttons
+        for (const [topicId, answerInfo] of Object.entries(quizAnswers)) {
+            const card = document.getElementById(topicId);
+            if (!card) continue;
+            const btns = card.querySelectorAll('.quiz-btn');
+            const feedbackDiv = card.querySelector(`.quiz-feedback`);
+            if (!feedbackDiv) continue;
+
+            btns.forEach(btn => {
+                // remove old listeners to avoid duplication
+                btn.removeEventListener('click', (e) => {});
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const selectedValue = btn.getAttribute('data-opt');
+                    const isCorrect = (selectedValue === answerInfo.correct);
+                    if (isCorrect) {
+                        feedbackDiv.innerHTML = '<span style="color:#2b7a3e;"><i class="fas fa-check-circle"></i> ✅ Correct! Well done, keep it up! 🎉</span>';
+                        feedbackDiv.style.fontWeight = "500";
+                    } else {
+                        feedbackDiv.innerHTML = `<span style="color:#b13e3e;"><i class="fas fa-times-circle"></i> ❌ Oops! The right answer is “${answerInfo.correct}”. Try again next time! 💪🏽</span>`;
+                    }
+                    // auto-clear after 4 seconds? optional but not required; keep clean.
+                    setTimeout(() => {
+                        if (feedbackDiv.innerHTML.includes("Correct") || feedbackDiv.innerHTML.includes("Oops")) {
+                            // but we don't clear immediate to preserve feedback until next click
+                        }
+                    }, 3000);
+                });
+            });
+        }
+    }
+
+    // also reset quiz feedback when switching topics? optional, but good UX: clear old messages
+    function resetAllFeedbacks() {
+        for (const [topicId, info] of Object.entries(quizAnswers)) {
+            const fbDiv = document.getElementById(info.feedbackId);
+            if (fbDiv) fbDiv.innerHTML = '';
+        }
+    }
+
+    // watch for topic switch to reset feedback
+    const originalSwitch = switchTopic;
+    window.switchTopic = function(topicId) {
+        originalSwitch(topicId);
+        resetAllFeedbacks();
+    };
+    // override switchTopic globally to preserve reset on manual click
+    topicBtns.forEach(btn => {
+        const originalClick = btn.onclick;
+        btn.removeEventListener('click', btn.click);
+        btn.addEventListener('click', (e) => {
+            const topic = btn.getAttribute('data-topic');
+            switchTopic(topic);
+            resetAllFeedbacks();
+        });
+    });
+
+    // re-define switchTopic to also include reset feedbacks
+    function safeSwitch(topicId) {
+        topicCards.forEach(card => card.classList.remove('active-card'));
+        topicBtns.forEach(btn => btn.classList.remove('active'));
+        const activeCard = document.getElementById(topicId);
+        if (activeCard) activeCard.classList.add('active-card');
+        const activeBtn = Array.from(topicBtns).find(btn => btn.getAttribute('data-topic') === topicId);
+        if (activeBtn) activeBtn.classList.add('active');
+        resetAllFeedbacks();
+    }
+    window.switchTopic = safeSwitch;
+    topicBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            safeSwitch(btn.getAttribute('data-topic'));
+        });
+    });
+
+    // attach quiz listeners initially
+    attachQuizListeners();
+
+    // optional: Manual trigger for existing quiz btns after dynamic content (which is static already)
+    // In case of future changes we keep robust.
+    document.querySelectorAll('.topic-card').forEach(() => {});
+    // final re-attach after everything
+    window.addEventListener('load', () => {
+        attachQuizListeners();
+        // ensure the image math.jpg fallback: if missing display alternative but already handled by onerror
+        const logoImg = document.querySelector('.logo-img');
+        if (logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+            // already fallback due to onerror attribute: src set to placeholder, but we keep message
+            console.log("Note: 'math.jpg' not found, using fallback placeholder. Please add math.jpg logo.");
+        }
+    });
+</script>
+</body>
+</html>
